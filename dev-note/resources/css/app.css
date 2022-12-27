@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.icon-img {
+    min-height: 100%;
+    min-width: 100%;
+}

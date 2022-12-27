@@ -13,9 +13,15 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <div id="img_previewer" class="mt-4 rounded-full border drop-shadow-md" style="width: 100px; height: 100px; overflow: hidden; ">
+            <img class="icon-img" src="storage/{{ $profile->top_img }}">
+        </div>
+        <input type="file" class="mt-4" name="icon-img" data-target-id="img_previewer" data-classes="icon-img" onchange="setImgPreview(event);">
+        <x-input-error class="mt-2" :messages="$errors->get('icon-img')" />
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -47,6 +53,12 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="description" :value="__('プロフィール文')" />
+            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+            <textarea id="description" name="description" rows="15" cols="63" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" autofocus>{{ $profile->description }}</textarea>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
@@ -62,3 +74,4 @@
         </div>
     </form>
 </section>
+<script src="{{ asset('assets/js/setImgPreview.js') }}"></script>
